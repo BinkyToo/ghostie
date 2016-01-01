@@ -23,8 +23,8 @@
 
 	function create() {
 	    game.physics.startSystem(Phaser.Physics.ARCADE);
-	    //var background = game.add.TileSprite(0, 0, 300, 300, 'background', 0);
-	    var background = game.add.sprite(10, 100, 'background');
+	    var background = game.add.tileSprite(0, 0, 800, 300, 'background', 0);
+	    //var background = game.add.sprite(10, 100, 'background');
 
 
 	    var ghost = game.add.sprite(game.world.centerX, game.world.centerY, 'ghost');
