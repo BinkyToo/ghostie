@@ -20,14 +20,18 @@
 	}
 
 	function create() {
+	    //game.physics.startSystem(Phaser.Physics.ARCADE);
 
-	    var ghost = game.add.sprite(game.world.centerX+450, game.world.centerY, 'ghost');
+	    var ghost = game.add.sprite(game.world.centerX, game.world.centerY, 'ghost');
+	    //game.physics.enable(ghost, Phaser.Physics.ARCADE);
+
 	    ghost.anchor.setTo(0.5, 0.5);
 	    var wave = ghost.animations.add('wave');
 	    ghost.animations.play('wave', 25, true);
 	    
-	    ghost.body.velocity.x=-30;
-
+	    ghost.body.velocity.setTo(-100, 0);
+	    ghost.body.collideWorldBounds = true;
+	    ghost.body.bounce.set(0);
 	}
 
     };
