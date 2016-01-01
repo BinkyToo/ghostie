@@ -13,21 +13,20 @@
 
     window.onload = function() {
 
-	var game = new Phaser.Game(800, 300, Phaser.AUTO, '', { preload: preload, create: create, update: update});
+	var game = new Phaser.Game(800, 300, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render});
+	
+	var ghost;
 	
 	function preload() {
 	      game.load.spritesheet('ghost', 'ghost-wavey.png', 40, 80, 8);
 	      game.load.image('background', 'darkrock.png');
-
 	}
 
 	function create() {
 	    game.physics.startSystem(Phaser.Physics.ARCADE);
 	    var background = game.add.tileSprite(0, 0, 800, 300, 'background', 0);
-	    //var background = game.add.sprite(10, 100, 'background');
 
-
-	    var ghost = game.add.sprite(game.world.centerX, game.world.centerY, 'ghost');
+	    ghost = game.add.sprite(game.world.centerX, game.world.centerY, 'ghost');
 	    game.physics.enable(ghost, Phaser.Physics.ARCADE);
 
 	    ghost.anchor.setTo(0.5, 0.5);
@@ -36,21 +35,21 @@
 	    
 	    ghost.body.velocity.setTo(-100, 0);
 	    ghost.body.collideWorldBounds = true;
-	    ghost.body.bounce.set(1);
+	    ghost.body.bounce.set(0.2);
 	}
 	function update() {
 
-	    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
-	    {
+	    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
 		//ghost.x -= 4;
-		ghost.body.velocity.setTo(100, 0);
-
-	    }
-	    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
-	    {
-		//ghost.x += 4;
 		ghost.body.velocity.setTo(-100, 0);
 	    }
+	    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+		//ghost.x += 4;
+		ghost.body.velocity.setTo(100, 0);
+	    }
+	}
+	function render() {
+	  //game.debug.spriteInfo(ghost, 20, 32);
 	}
 
     };
