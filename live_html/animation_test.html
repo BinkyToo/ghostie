@@ -1,0 +1,35 @@
+
+
+<!doctype html>
+<html>
+    <head>
+	<meta charset="UTF-8" />
+	<title>Animated sprite!</title>
+	<script src="phaser.min.js"></script>
+    </head>
+    <body>
+
+    <script type="text/javascript">
+
+    window.onload = function() {
+
+	var game = new Phaser.Game(800, 600, Phaser.CANVAS, '', { preload: preload, create: create });
+	function preload() {
+	game.load.spritesheet('ghost', 'ghost-wavey.png', 40, 80, 8);
+
+}
+
+function create() {
+
+    var ghost = game.add.sprite(300, 200, 'ghost');
+    var wave = ghost.animations.add('wave');
+    ghost.animations.play('wave', 30, true);
+
+}
+
+    };
+
+    </script>
+
+    </body>
+</html>
