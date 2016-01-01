@@ -44,16 +44,18 @@
 	    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
 		//ghost.x -= 4;
 		ghost.body.velocity.x=-100;
-		ghost.body.velocity.y += 75;
+		ghost.body.velocity.y += 30;
 	    }
 	    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
 		//ghost.x += 4;
 		ghost.body.velocity.x=100;
-		ghost.body.velocity.y += 75;
+		ghost.body.velocity.y += 30;
 	    }
 	    else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)){
 		//ghost.x += 4;
-		ghost.body.velocity.y=-50;
+		if (ghost.body.velocity.y >= -65) {
+		  ghost.body.velocity.y -= 31;
+		  }
 	    }
 	    
 	}
