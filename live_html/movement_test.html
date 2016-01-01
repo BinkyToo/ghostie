@@ -29,6 +29,7 @@
 	    ghost = game.add.sprite(game.world.centerX, game.world.centerY, 'ghost');
 	    game.physics.enable(ghost, Phaser.Physics.ARCADE);
 	    game.physics.arcade.gravity.y = 500;
+	    //ghost.setAll('body.friction.x', 1);
 
 	    ghost.anchor.setTo(0.5, 0.5);
 	    var wave = ghost.animations.add('wave');
@@ -48,9 +49,9 @@
 		//ghost.x += 4;
 		ghost.body.velocity.x=100;
 	    }
-	    if (game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+	    else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)){
 		//ghost.x += 4;
-		ghost.body.velocity.y=750;
+		ghost.body.velocity.y=-50;
 	    }
 	}
 	function render() {
