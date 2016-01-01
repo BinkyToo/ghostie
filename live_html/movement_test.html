@@ -40,10 +40,7 @@
 	}
 	function update() {
 	    ghost.body.velocity.x *= 0.9;
-	    if (game.input.keyboard.isDown(Phaser.Keyboard.UP)){
-		//ghost.x += 4;
-		ghost.body.velocity.y=-50;
-	    }
+	    
 	    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
 		//ghost.x -= 4;
 		ghost.body.velocity.x=-100;
@@ -53,6 +50,10 @@
 		//ghost.x += 4;
 		ghost.body.velocity.x=100;
 		ghost.body.velocity.y += 75;
+	    }
+	    else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+		//ghost.x += 4;
+		ghost.body.velocity.y=-50;
 	    }
 	    
 	}
