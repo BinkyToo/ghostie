@@ -20,11 +20,13 @@
 	function preload() {
 	      game.load.spritesheet('ghost', 'ghost-wavey.png', 40, 80, 8);
 	      game.load.image('background', 'darkrock.png');
+	      game.load.image('sky', 'sky.png');
 	}
 
 	function create() {
 	    game.physics.startSystem(Phaser.Physics.ARCADE);
 	    var background = game.add.tileSprite(0, 0, 800, 300, 'background', 0);
+	    var sky = game.add.sprite(400, 0, 'sky');
 
 	    ghost = game.add.sprite(game.world.centerX, game.world.centerY, 'ghost');
 	    game.physics.enable(ghost, Phaser.Physics.ARCADE);
