@@ -2,7 +2,7 @@
 <html>
     <head>
 	<meta charset="UTF-8" />
-	<title>Moving sprite!</title>
+	<title>Ninjas!</title>
 	<script src="phaser-ninja-physics.js"></script>
     </head>
     <body>
@@ -17,6 +17,7 @@
 
 		game.load.image('block', 'block.png');
 		game.load.spritesheet('ninja-tiles', 'ninja-tiles128.png', 128, 128, 34);
+	        game.load.spritesheet('ghost', 'ghost-wavey.png', 40, 80, 8);
 
 	    }
 
@@ -27,20 +28,26 @@
 
 	    function create() {
 
-		    // Here we tell the physics manager we system we want to use
-		    game.physics.startSystem(Phaser.Physics.NINJA);
+		// Here we tell the physics manager we system we want to use
+		game.physics.startSystem(Phaser.Physics.NINJA);
 
-
+		ghost = game.add.sprite(game.world.centerX, game.world.centerY, 'ghost');
+		ghost.anchor.setTo(0.5, 0.5);
+		var wave = ghost.animations.add('wave');
+		ghost.animations.play('wave', 25, true);
 
 		sprite1 = game.add.sprite(600, 100, 'block');
 		sprite1.name = 'blockA';
 
 		// Enable ninja on the sprite and creates an AABB around it
 		game.physics.ninja.enableAABB(sprite1);
+		game.physics.ninja.enableAABB(ghost);
+
 
 		// 
-		tile = game.add.sprite(600, 480, 'ninja-tiles', 3);
+		tile = game.add.sprite(500, 480, 'ninja-tiles', 3);
 		game.physics.ninja.enableTile(tile, tile.frame);
+		
 
 		cursors = game.input.keyboard.createCursorKeys();
 
@@ -49,22 +56,24 @@
 	    function update() {
 
 		game.physics.ninja.collide(sprite1, tile);
+		game.physics.ninja.collide(ghost, tile);
+		game.physics.ninja.collide(ghost, sprite1);
 
 
 
 		if (cursors.left.isDown)
 		{
-		    sprite1.body.moveLeft(20);
+		    ghost.body.moveLeft(20);
 		}
 		else if (cursors.right.isDown)
 		{
-		    sprite1.body.moveRight(20);
+		    ghost.body.moveRight(20);
 		}
 
 		if (cursors.up.isDown)
 		{
 
-		    sprite1.body.moveUp(30);
+		    ghost.body.moveUp(30);
 		}
 
 	    }
