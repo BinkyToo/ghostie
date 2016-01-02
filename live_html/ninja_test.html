@@ -18,6 +18,7 @@
 		game.load.image('block', 'block.png');
 		game.load.spritesheet('ninja-tiles', 'ninja-tiles128.png', 128, 128, 34);
 	        game.load.spritesheet('ghost', 'ghost-wavey.png', 40, 80, 8);
+		game.load.image('background', 'darkrock.png');
 
 	    }
 
@@ -27,6 +28,7 @@
 	    var cursors;
 
 	    function create() {
+		var background = game.add.tileSprite(0, 0, 800, 600, 'background', 0);
 
 		// Here we tell the physics manager we system we want to use
 		game.physics.startSystem(Phaser.Physics.NINJA);
@@ -35,6 +37,8 @@
 		ghost.anchor.setTo(0.5, 0.5);
 		var wave = ghost.animations.add('wave');
 		ghost.animations.play('wave', 25, true);
+	
+
 
 		sprite1 = game.add.sprite(600, 100, 'block');
 		sprite1.name = 'blockA';
@@ -43,6 +47,7 @@
 		game.physics.ninja.enableAABB(sprite1);
 		game.physics.ninja.enableAABB(ghost);
 
+	        ghost.body.bounce = 0.4;
 
 		// 
 		tile = game.add.sprite(500, 480, 'ninja-tiles', 3);
@@ -54,6 +59,8 @@
 	    }
 
 	    function update() {
+		ghost.angle = ghost.body.velocity.x;
+		ghost.scale.setTo(1+Math.abs(ghost.body.velocity.x/2000), 1+Math.abs(ghost.body.velocity.y/1000))
 
 		game.physics.ninja.collide(sprite1, tile);
 		game.physics.ninja.collide(ghost, tile);
@@ -73,7 +80,7 @@
 		if (cursors.up.isDown)
 		{
 
-		    ghost.body.moveUp(30);
+		    ghost.body.moveUp(11.9);
 		}
 
 	    }
