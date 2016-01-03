@@ -14,6 +14,7 @@
 
 	function preload() {
 	    game.load.image('rain', 'rain.png');
+	    game.load.image('wind', 'wind.png');
 	    game.load.image('nearhorizon', 'horizon2.png');
 	    game.load.image('farhorizon', 'horizon1.png');
 	    game.load.tilemap('map', 'test.json', null, Phaser.Tilemap.TILED_JSON);
@@ -42,6 +43,7 @@
 
 	    game.stage.backgroundColor = '#808080';
 	    rain = game.add.tileSprite(0, 0, 2000, 2000, 'rain', 0);
+	    wind = game.add.tileSprite(0, 0, 2000, 2000, 'wind', 0);
 	    //var nearhorizon = game.add.image(0, 200, 'nearhorizon');
 	    //farhorizon = game.add.tileSprite(0, 400, 1600, 600, 'farhorizon', 0);
 	    //nearhorizon = game.add.tileSprite(0, 200, 1600, 600, 'nearhorizon', 0);
@@ -115,6 +117,8 @@
 	    //background.tilePosition.y = -game.camera.position.y/8;
 	    rain.tilePosition.x -= 1;
 	    rain.tilePosition.y += 2;
+	    wind.tilePosition.x -= 2;
+	    wind.tilePosition.y += 1;
 
 	    if (cursors.left.isDown)
 	    {
