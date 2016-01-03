@@ -5,129 +5,126 @@
 	<title>British weather!</title>
 	<script src="phaser.js"></script>
     </head>
-    <body>
+    <body bgcolor="#000000"> 
+	<script type="text/javascript">
 
-    <script type="text/javascript">
+	    window.onload = function() {
+	    var game = new Phaser.Game(800, 480, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update});
 
-    window.onload = function() {
-	var game = new Phaser.Game(800, 480, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update});
-
-	function preload() {
-	    game.load.image('rain', 'rain.png');
-	    game.load.image('wind', 'wind.png');
-	    game.load.tilemap('map', 'testmap.json', null, Phaser.Tilemap.TILED_JSON);
-	    game.load.image('basic', 'main.png');
-	    game.load.image('features', 'features.png');
-	    game.load.image('tree', 'tree.png');
-	    game.load.image('cavewall', 'cavewall.png');
-	    game.load.spritesheet('ghost', 'ghost-wavey.png', 40, 80, 8);
-	    game.load.audio('music', ['Neomusic_-_Hometown__rain_sound_.ogg', 'Neomusic_-_Hometown__rain_sound_.mp3']);
-	}
-
-	// Defined here as global
-	var cursors;
-
-	var map;
-	var layer;
-	var background;
-	var rain;
-	var wind;
-
-	function create() {
-	    game.physics.startSystem(Phaser.Physics.P2JS);
-	    
-	    //Music
-	    music = game.add.audio('music');
-	    music.loop = true;
-	    music.play();
-
-	    //weather
-	    game.stage.backgroundColor = '#808070';
-	    rain = game.add.tileSprite(0, 0, 2000, 2000, 'rain', 0);
-	    wind = game.add.tileSprite(0, 0, 2000, 2000, 'wind', 0);
-	    
-	    //process map and tilesheets
-	    map = game.add.tilemap('map');
-	    map.addTilesetImage('basic');
-	    map.addTilesetImage('features');
-	    map.addTilesetImage('tree');
-	    map.addTilesetImage('cavewall');
-	    
-	    //load background tiles
-	    background = map.createLayer('Background');
-	    
-	    //setup ghost (player sprite)
-	    ghost = game.add.sprite(120, 450, 'ghost');
-	    game.physics.enable(ghost, Phaser.Physics.P2JS);
-	    var wave = ghost.animations.add('wave');
-	    ghost.animations.play('wave', 25, true);
-	    ghost.body.fixedRotation = true;
-	    ghost.body.restitution = 0.5;
-	    ghost.body.damping = 0.6;
-	    ghost.body.clearShapes();
-	    ghost.body.addCapsule(36, 12, 0, 0, 1.57)
-;
-	    //load main world tiles
-	    layer = map.createLayer('Midground');
-
-	    layer.resizeWorld();	// Make world fit map?
-
-	    //process collision objects from map, load into physics system
-	    game.physics.p2.convertCollisionObjects(map,"Collision Layer", true); 
-	    game.physics.p2.restitution = 0.5;
-	    game.physics.p2.gravity.y = 300;
-
-	    // Guess!
-	    game.camera.follow(ghost);
-
-	    // not strictly needed, but tidier?
-	    cursors = game.input.keyboard.createCursorKeys();
-	}
-
-	function update() {
-	    // change shape of player sprite according to its movement
-	    ghost.angle = ghost.body.velocity.x / 15
-	    if (ghost.body.velocity.x < 0){
-		ghost.scale.setTo(1+Math.abs(ghost.body.velocity.x/2000), 1+Math.abs(ghost.body.velocity.y/1000))
-	    }
-	    else {
-		ghost.scale.setTo(-1-Math.abs(ghost.body.velocity.x/2000), 1+Math.abs(ghost.body.velocity.y/1000))
+	    function preload() {
+		game.load.image('rain', 'rain.png');
+		game.load.image('wind', 'wind.png');
+		game.load.tilemap('map', 'testmap.json', null, Phaser.Tilemap.TILED_JSON);
+		game.load.image('basic', 'main.png');
+		game.load.image('features', 'features.png');
+		game.load.image('tree', 'tree.png');
+		game.load.image('cavewall', 'cavewall.png');
+		game.load.spritesheet('ghost', 'ghost-wavey.png', 40, 80, 8);
+		game.load.audio('music', ['Neomusic_-_Hometown__rain_sound_.ogg', 'Neomusic_-_Hometown__rain_sound_.mp3']);
 	    }
 
-	    // update atmospheric effects
-	    rain.tilePosition.x -= 1;
-	    rain.tilePosition.y += 2;
-	    wind.tilePosition.x -= 2;
-	    wind.tilePosition.y += 1;
+	    // Defined here as global
+	    var cursors;
 
-	    //handle keyboard input
-	    if (cursors.left.isDown)
-	    {
-		if (ghost.body.velocity.x >= -250) {
-		  ghost.body.velocity.x -= 10;
+	    var map;
+	    var layer;
+	    var background;
+	    var rain;
+	    var wind;
+
+	    function create() {
+		game.physics.startSystem(Phaser.Physics.P2JS);
+		
+		//Music
+		music = game.add.audio('music');
+		music.loop = true;
+		music.play();
+
+		//weather
+		game.stage.backgroundColor = '#707068';
+		rain = game.add.tileSprite(0, 0, 2000, 2000, 'rain', 0);
+		wind = game.add.tileSprite(0, 0, 2000, 2000, 'wind', 0);
+		
+		//process map and tilesheets
+		map = game.add.tilemap('map');
+		map.addTilesetImage('basic');
+		map.addTilesetImage('features');
+		map.addTilesetImage('tree');
+		map.addTilesetImage('cavewall');
+		
+		//load background tiles
+		background = map.createLayer('Background');
+		
+		//setup ghost (player sprite)
+		ghost = game.add.sprite(120, 450, 'ghost');
+		game.physics.enable(ghost, Phaser.Physics.P2JS);
+		var wave = ghost.animations.add('wave');
+		ghost.animations.play('wave', 25, true);
+		ghost.body.fixedRotation = true;
+		ghost.body.restitution = 0.5;
+		ghost.body.damping = 0.6;
+		ghost.body.clearShapes();
+		ghost.body.addCapsule(36, 12, 0, 0, 1.57)
+    ;
+		//load main world tiles
+		layer = map.createLayer('Midground');
+
+		layer.resizeWorld();	// Make world fit map?
+
+		//process collision objects from map, load into physics system
+		game.physics.p2.convertCollisionObjects(map,"Collision Layer", true); 
+		game.physics.p2.restitution = 0.5;
+		game.physics.p2.gravity.y = 300;
+
+		// Guess!
+		game.camera.follow(ghost);
+
+		// not strictly needed, but tidier?
+		cursors = game.input.keyboard.createCursorKeys();
+	    }
+
+	    function update() {
+		// change shape of player sprite according to its movement
+		ghost.angle = ghost.body.velocity.x / 15
+		if (ghost.body.velocity.x < 0){
+		    ghost.scale.setTo(1+Math.abs(ghost.body.velocity.x/2000), 1+Math.abs(ghost.body.velocity.y/1000))
 		}
-		ghost.body.moveDown(40);
-
-	    }
-	    else if (cursors.right.isDown)
-	    {
-		if (ghost.body.velocity.x <= 250) {
-		  ghost.body.velocity.x += 10;
+		else {
+		    ghost.scale.setTo(-1-Math.abs(ghost.body.velocity.x/2000), 1+Math.abs(ghost.body.velocity.y/1000))
 		}
-		ghost.body.moveDown(40);
 
+		// update atmospheric effects
+		rain.tilePosition.x -= 1;
+		rain.tilePosition.y += 2;
+		wind.tilePosition.x -= 2;
+		wind.tilePosition.y += 1;
+
+		//handle keyboard input
+		if (cursors.left.isDown)
+		{
+		    if (ghost.body.velocity.x >= -250) {
+		      ghost.body.velocity.x -= 10;
+		    }
+		    ghost.body.moveDown(40);
+
+		}
+		else if (cursors.right.isDown)
+		{
+		    if (ghost.body.velocity.x <= 250) {
+		      ghost.body.velocity.x += 10;
+		    }
+		    ghost.body.moveDown(40);
+
+		}
+
+		else if (cursors.up.isDown)
+		{
+		    if (ghost.body.velocity.y >= -75) {
+		      ghost.body.velocity.y -= 10;
+		      }
+		}
 	    }
-
-	    else if (cursors.up.isDown)
-	    {
-		if (ghost.body.velocity.y >= -75) {
-		  ghost.body.velocity.y -= 10;
-		  }
-	    }
-	}
-    };
-
-    </script>
-
+	};
+	</script>
     </body>
 </html>
