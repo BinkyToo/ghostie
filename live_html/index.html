@@ -40,10 +40,7 @@
 		music.loop = true;
 		music.play();
 
-		//weather
 		game.stage.backgroundColor = '#707068';
-		rain = game.add.tileSprite(0, 0, 2000, 2000, 'rain', 0);
-		wind = game.add.tileSprite(0, 0, 2000, 2000, 'wind', 0);
 		
 		//process map and tilesheets
 		map = game.add.tilemap('map');
@@ -81,6 +78,13 @@
 
 		// not strictly needed, but tidier?
 		cursors = game.input.keyboard.createCursorKeys();
+		
+		// weather, then moved to back. this order neccessary to get size
+		rain = game.add.tileSprite(0, 0, game.world.width, game.world.height, 'rain', 0);
+		wind = game.add.tileSprite(0, 0, game.world.width, game.world.height, 'wind', 0);
+		game.world.bringToTop(background);
+		game.world.bringToTop(ghost);
+		game.world.bringToTop(layer);
 	    }
 
 	    function update() {
@@ -105,7 +109,7 @@
 		    if (ghost.body.velocity.x >= -250) {
 		      ghost.body.velocity.x -= 10;
 		    }
-		    ghost.body.moveDown(40);
+		    ghost.body.velocity.y += 5;
 
 		}
 		else if (cursors.right.isDown)
@@ -113,7 +117,7 @@
 		    if (ghost.body.velocity.x <= 250) {
 		      ghost.body.velocity.x += 10;
 		    }
-		    ghost.body.moveDown(40);
+		    ghost.body.velocity.y += 5;
 
 		}
 
