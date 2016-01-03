@@ -15,15 +15,16 @@
 	function preload() {
 	    game.load.image('rain', 'rain.png');
 	    game.load.image('wind', 'wind.png');
-	    game.load.tilemap('map', 'test.json', null, Phaser.Tilemap.TILED_JSON);
+	    game.load.tilemap('map', 'testmap.json', null, Phaser.Tilemap.TILED_JSON);
 	    game.load.image('basic', 'main.png');
-	    game.load.image('special', 'special.png');
+	    game.load.image('features', 'features.png');
 	    game.load.image('tree', 'tree.png');
 	    game.load.image('cavewall', 'cavewall.png');
 	    game.load.spritesheet('ghost', 'ghost-wavey.png', 40, 80, 8);
 	    game.load.audio('music', ['Neomusic_-_Hometown__rain_sound_.ogg', 'Neomusic_-_Hometown__rain_sound_.mp3']);
 	}
 
+	// Defined here as global
 	var cursors;
 
 	var map;
@@ -47,7 +48,7 @@
 	    //process map and tilesheets
 	    map = game.add.tilemap('map');
 	    map.addTilesetImage('basic');
-	    map.addTilesetImage('special');
+	    map.addTilesetImage('features');
 	    map.addTilesetImage('tree');
 	    map.addTilesetImage('cavewall');
 	    
