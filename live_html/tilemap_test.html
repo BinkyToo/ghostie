@@ -20,6 +20,7 @@
 	    game.load.image('basic', 'main.png');
 	    game.load.image('special', 'special.png');
 	    game.load.image('tree', 'tree.png');
+	    game.load.image('cavewall', 'cavewall.png');
 	    game.load.spritesheet('ghost', 'ghost-wavey.png', 40, 80, 8);
 
 	}
@@ -31,6 +32,7 @@
 
 	var map;
 	var layer;
+	var background;
 	var nearhorizon;
 	var rain;
 
@@ -60,10 +62,10 @@
 	    map.addTilesetImage('special');
 	    map.addTilesetImage('tree');
 	    
-	    layer = map.createLayer('Tile Layer 1');
+	    //background = map.createLayer('Background');
+	    layer = map.createLayer('Midground');
 	    //collisionLayer = map.createLayer('Object Layer 1');
 	    //rain = game.add.tileSprite(0, 0, 2000, 2000, 'rain', 0);
-
 
 	    layer.resizeWorld();
 
@@ -77,7 +79,7 @@
 	    //game.physics.p2.convertTilemap(map, layer);
 	    //ghost.body.collides(boundsCG);
 	    //var boundsCG =  game.physics.p2.createCollisionGroup();
-	    game.physics.p2.convertCollisionObjects(map,"Object Layer 1", true); 
+	    game.physics.p2.convertCollisionObjects(map,"Collision Layer", true); 
 	    //ghost.collides(collisionLayer);
 	    //var bounds = game.physics.p2.convertCollisionObjects(map, 'Object Layer 1', true);   
 	    //for(var bound in bounds)
