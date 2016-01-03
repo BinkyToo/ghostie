@@ -10,7 +10,7 @@
     <script type="text/javascript">
 
     window.onload = function() {
-	var game = new Phaser.Game(640, 480, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+	var game = new Phaser.Game(800, 480, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 	function preload() {
 	    game.load.image('background', 'darkrock.png');
@@ -32,16 +32,17 @@
 	var map;
 	var layer;
 	var nearhorizon;
+	var background;
 
 	function create() {
 
 	    game.physics.startSystem(Phaser.Physics.P2JS);
 
 	    game.stage.backgroundColor = '#808080';
-	    //var background = game.add.tileSprite(0, 0, 2000, 600, 'background', 0);
+	    background = game.add.tileSprite(0, 0, 2000, 2000, 'background', 0);
 	    //var nearhorizon = game.add.image(0, 200, 'nearhorizon');
-	    farhorizon = game.add.tileSprite(0, 100, 1600, 600, 'farhorizon', 0);
-	    nearhorizon = game.add.tileSprite(0, 300, 1600, 600, 'nearhorizon', 0);
+	    //farhorizon = game.add.tileSprite(0, 400, 1600, 600, 'farhorizon', 0);
+	    //nearhorizon = game.add.tileSprite(0, 200, 1600, 600, 'nearhorizon', 0);
 
 	    map = game.add.tilemap('map');
 	    
@@ -84,10 +85,12 @@
 	function update() {
 	    ghost.angle = ghost.body.velocity.x / 15
 	    //ghost.scale.setTo(1+Math.abs(ghost.body.velocity.x/2000), 1+Math.abs(ghost.body.velocity.y/1000))
-	    nearhorizon.tilePosition.x = -game.camera.position.x/8;
-	    farhorizon.tilePosition.x = -game.camera.position.x/16;
-	    nearhorizon.tilePosition.y = -game.camera.position.y/8;
-	    farhorizon.tilePosition.y = -game.camera.position.y/16;
+	    //nearhorizon.tilePosition.x = -game.camera.position.x/8;
+	    //farhorizon.tilePosition.x = -game.camera.position.x/16;
+	    //nearhorizon.tilePosition.y = -game.camera.position.y/8;
+	    //farhorizon.tilePosition.y = -game.camera.position.y/16;
+	    background.tilePosition.x = -game.camera.position.x/16;
+	    background.tilePosition.y = -game.camera.position.y/8;
 
 	    if (cursors.left.isDown)
 	    {
@@ -100,7 +103,6 @@
 	    }
 	    else if (cursors.right.isDown)
 	    {
-		nearhorizon.tilePosition.x -=1;
 		ghost.scale.x = -1;
 		if (ghost.body.velocity.x <= 250) {
 		  ghost.body.velocity.x += 10;
