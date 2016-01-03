@@ -39,20 +39,22 @@
 	    game.physics.startSystem(Phaser.Physics.P2JS);
 
 	    game.stage.backgroundColor = '#808080';
-	    background = game.add.tileSprite(0, 560, 2000, 2000, 'background', 0);
+	    //background = game.add.tileSprite(0, 560, 2000, 2000, 'background', 0);
 	    //var nearhorizon = game.add.image(0, 200, 'nearhorizon');
 	    //farhorizon = game.add.tileSprite(0, 400, 1600, 600, 'farhorizon', 0);
 	    //nearhorizon = game.add.tileSprite(0, 200, 1600, 600, 'nearhorizon', 0);
 
 	    map = game.add.tilemap('map');
 	    
-	    ghost = game.add.sprite(100, 0, 'ghost');
+	    ghost = game.add.sprite(120, 0, 'ghost');
 	    game.physics.enable(ghost, Phaser.Physics.P2JS);
 	    var wave = ghost.animations.add('wave');
 	    ghost.animations.play('wave', 25, true);
 	    ghost.body.fixedRotation = true;
 	    ghost.body.restitution = 0.5;
 	    ghost.body.damping = 0.6;
+	    ghost.body.clearShapes();
+	    ghost.body.addCapsule(36, 12, 0, 0, 1.57)
 ;
 	    map.addTilesetImage('basic');
 	    map.addTilesetImage('special');
@@ -96,7 +98,12 @@
 
 	function update() {
 	    ghost.angle = ghost.body.velocity.x / 15
-	    //ghost.scale.setTo(1+Math.abs(ghost.body.velocity.x/2000), 1+Math.abs(ghost.body.velocity.y/1000))
+	    if (ghost.body.velocity.x < 0){
+		ghost.scale.setTo(1+Math.abs(ghost.body.velocity.x/2000), 1+Math.abs(ghost.body.velocity.y/1000))
+	    }
+	    else {
+		ghost.scale.setTo(-1-Math.abs(ghost.body.velocity.x/2000), 1+Math.abs(ghost.body.velocity.y/1000))
+	    }
 	    //nearhorizon.tilePosition.x = -game.camera.position.x/8;
 	    //farhorizon.tilePosition.x = -game.camera.position.x/16;
 	    //nearhorizon.tilePosition.y = -game.camera.position.y/8;
@@ -106,7 +113,7 @@
 
 	    if (cursors.left.isDown)
 	    {
-		ghost.scale.x = 1;
+		//ghost.scale.x = 1;
 		if (ghost.body.velocity.x >= -250) {
 		  ghost.body.velocity.x -= 10;
 		}
@@ -115,7 +122,7 @@
 	    }
 	    else if (cursors.right.isDown)
 	    {
-		ghost.scale.x = -1;
+		//ghost.scale.x = -1;
 		if (ghost.body.velocity.x <= 250) {
 		  ghost.body.velocity.x += 10;
 		}
