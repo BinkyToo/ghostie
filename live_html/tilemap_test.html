@@ -50,6 +50,9 @@
 
 	    map = game.add.tilemap('map');
 	    
+	    map.addTilesetImage('cavewall');
+	    background = map.createLayer('Background');
+	    
 	    ghost = game.add.sprite(120, 450, 'ghost');
 	    game.physics.enable(ghost, Phaser.Physics.P2JS);
 	    var wave = ghost.animations.add('wave');
@@ -63,8 +66,7 @@
 	    map.addTilesetImage('basic');
 	    map.addTilesetImage('special');
 	    map.addTilesetImage('tree');
-	    
-	    //background = map.createLayer('Background');
+
 	    layer = map.createLayer('Midground');
 	    //collisionLayer = map.createLayer('Object Layer 1');
 	    //rain = game.add.tileSprite(0, 0, 2000, 2000, 'rain', 0);
