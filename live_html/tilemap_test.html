@@ -23,7 +23,7 @@
 	    game.load.image('tree', 'tree.png');
 	    game.load.image('cavewall', 'cavewall.png');
 	    game.load.spritesheet('ghost', 'ghost-wavey.png', 40, 80, 8);
-
+	    game.load.audio('music', ['Neomusic_-_Hometown__rain_sound_.ogg', 'Neomusic_-_Hometown__rain_sound_.mp3']);
 	}
 
 	var facing = 'left';
@@ -38,6 +38,8 @@
 	var rain;
 
 	function create() {
+	    music = game.add.audio('music');
+	    music.play();
 
 	    game.physics.startSystem(Phaser.Physics.P2JS);
 
