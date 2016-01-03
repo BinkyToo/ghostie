@@ -42,6 +42,8 @@
 	    ghost.animations.play('wave', 25, true);
 	    ghost.body.fixedRotation = true;
 	    ghost.body.restitution = 1;
+	    ghost.body.damping = 0.3;
+
 	    
 	    game.physics.p2.setWorldMaterial(worldMaterial);
 
