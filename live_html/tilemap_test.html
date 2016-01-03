@@ -13,7 +13,7 @@
 	var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 	function preload() {
-
+	    game.load.image('background', 'darkrock.png');
 	    game.load.tilemap('map', 'collision_test.json', null, Phaser.Tilemap.TILED_JSON);
 	    game.load.image('ground_1x1', 'ground_1x1.png');
 	    game.load.image('walls_1x2', 'walls_1x2.png');
@@ -35,6 +35,7 @@
 	    game.physics.startSystem(Phaser.Physics.P2JS);
 
 	    game.stage.backgroundColor = '#2d2d2d';
+	    var background = game.add.tileSprite(0, 0, 2000, 600, 'background', 0);
 
 	    map = game.add.tilemap('map');
 	    
