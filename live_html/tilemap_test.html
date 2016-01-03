@@ -14,10 +14,10 @@
 
 	function preload() {
 	    game.load.image('background', 'darkrock.png');
-	    game.load.tilemap('map', 'collision_test.json', null, Phaser.Tilemap.TILED_JSON);
-	    game.load.image('ground_1x1', 'ground_1x1.png');
-	    game.load.image('walls_1x2', 'walls_1x2.png');
-	    game.load.image('tiles2', 'tiles2.png');
+	    game.load.tilemap('map', 'test.json', null, Phaser.Tilemap.TILED_JSON);
+	    game.load.image('basic', 'main.png');
+	    game.load.image('special', 'special.png');
+	    game.load.image('tree', 'tree.png');
 	    game.load.spritesheet('ghost', 'ghost-wavey.png', 40, 80, 8);
 
 	}
@@ -39,17 +39,17 @@
 
 	    map = game.add.tilemap('map');
 	    
-	    ghost = game.add.sprite(game.world.centerX, game.world.centerY, 'ghost');
+	    ghost = game.add.sprite(100, 0, 'ghost');
 	    game.physics.enable(ghost, Phaser.Physics.P2JS);
 	    var wave = ghost.animations.add('wave');
 	    ghost.animations.play('wave', 25, true);
 	    ghost.body.fixedRotation = true;
 	    ghost.body.restitution = 0.5;
 	    ghost.body.damping = 0.6;
-
-	    map.addTilesetImage('ground_1x1');
-	    map.addTilesetImage('walls_1x2');
-	    map.addTilesetImage('tiles2');
+;
+	    map.addTilesetImage('basic');
+	    map.addTilesetImage('special');
+	    map.addTilesetImage('tree');
 	    
 	    layer = map.createLayer('Tile Layer 1');
 
@@ -57,7 +57,7 @@
 
 	    //  Set the tiles for collision.
 	    //  Do this BEFORE generating the p2 bodies below.
-	    map.setCollisionBetween(1, 12);
+	    map.setCollisionBetween(2, 39);
 
 	    //  Convert the tilemap layer into bodies. Only tiles that collide (see above) are created.
 	    //  This call returns an array of body objects which you can perform addition actions on if
