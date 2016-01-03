@@ -2,7 +2,7 @@
 <html>
     <head>
 	<meta charset="UTF-8" />
-	<title>Moving sprite!</title>
+	<title>Tilemap!</title>
 	<script src="phaser.js"></script>
     </head>
     <body>
@@ -18,11 +18,10 @@
 	    game.load.image('ground_1x1', 'ground_1x1.png');
 	    game.load.image('walls_1x2', 'walls_1x2.png');
 	    game.load.image('tiles2', 'tiles2.png');
-	    game.load.spritesheet('dude', 'dude.png', 32, 48);
+	    game.load.spritesheet('ghost', 'ghost-wavey.png', 40, 80, 8);
 
 	}
 
-	var player;
 	var facing = 'left';
 	var jumpTimer = 0;
 	var cursors;
@@ -38,6 +37,14 @@
 	    game.stage.backgroundColor = '#2d2d2d';
 
 	    map = game.add.tilemap('map');
+	    
+	    ghost = game.add.sprite(game.world.centerX, game.world.centerY, 'ghost');
+	    game.physics.enable(ghost, Phaser.Physics.P2JS);
+	    var wave = ghost.animations.add('wave');
+	    ghost.animations.play('wave', 25, true);
+	    ghost.body.fixedRotation = true;
+	    ghost.body.restitution = 0.5;
+	    ghost.body.damping = 0.6;
 
 	    map.addTilesetImage('ground_1x1');
 	    map.addTilesetImage('walls_1x2');
@@ -59,17 +66,8 @@
 	    game.physics.p2.restitution = 0.5;
 	    game.physics.p2.gravity.y = 300;
 
-	    player = game.add.sprite(100, 200, 'dude');
-	    player.animations.add('left', [0, 1, 2, 3], 10, true);
-	    player.animations.add('turn', [4], 20, true);
-	    player.animations.add('right', [5, 6, 7, 8], 10, true);
 
-	    game.physics.p2.enable(player);
-	    
-	    player.body.fixedRotation = true;
-	    // player.body.setMaterial(characterMaterial);
-
-	    game.camera.follow(player);
+	    game.camera.follow(ghost);
 
 	    cursors = game.input.keyboard.createCursorKeys();
 	    jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -78,75 +76,38 @@
 
 	function update() {
 
+	    ghost.angle = ghost.body.velocity.x / 15
+	    //ghost.scale.setTo(1+Math.abs(ghost.body.velocity.x/2000), 1+Math.abs(ghost.body.velocity.y/1000))
+
 	    if (cursors.left.isDown)
 	    {
-		player.body.moveLeft(200);
-
-		if (facing != 'left')
-		{
-		    player.animations.play('left');
-		    facing = 'left';
+		ghost.scale.x = 1;
+		if (ghost.body.velocity.x >= -250) {
+		  ghost.body.velocity.x -= 10;
 		}
+		ghost.body.moveDown(40);
+
 	    }
 	    else if (cursors.right.isDown)
 	    {
-		player.body.moveRight(200);
-
-		if (facing != 'right')
-		{
-		    player.animations.play('right');
-		    facing = 'right';
+		ghost.scale.x = -1;
+		if (ghost.body.velocity.x <= 250) {
+		  ghost.body.velocity.x += 10;
 		}
+		ghost.body.moveDown(40);
+
 	    }
-	    else
+
+	    else if (cursors.up.isDown)
 	    {
-		player.body.velocity.x = 0;
-
-		if (facing != 'idle')
-		{
-		    player.animations.stop();
-
-		    if (facing == 'left')
-		    {
-			player.frame = 0;
-		    }
-		    else
-		    {
-			player.frame = 5;
-		    }
-
-		    facing = 'idle';
-		}
-	    }
-	    
-	    if (jumpButton.isDown && game.time.now > jumpTimer && checkIfCanJump())
-	    {
-		player.body.moveUp(300);
-		jumpTimer = game.time.now + 750;
+		if (ghost.body.velocity.y >= -75) {
+		  ghost.body.velocity.y -= 10;
+		  }
 	    }
 
 	}
 
-	function checkIfCanJump() {
 
-	    var yAxis = p2.vec2.fromValues(0, 1);
-	    var result = false;
-
-	    for (var i = 0; i < game.physics.p2.world.narrowphase.contactEquations.length; i++)
-	    {
-		var c = game.physics.p2.world.narrowphase.contactEquations[i];
-
-		if (c.bodyA === player.body.data || c.bodyB === player.body.data)
-		{
-		    var d = p2.vec2.dot(c.normalA, yAxis); // Normal dot Y-axis
-		    if (c.bodyA === player.body.data) d *= -1;
-		    if (d > 0.5) result = true;
-		}
-	    }
-	    
-	    return result;
-
-	}
 
 	function render() {
 
