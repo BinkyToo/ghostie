@@ -80,7 +80,9 @@
 
 	    else if (cursors.up.isDown)
 	    {
-		ghost.body.moveUp(40);
+		if (ghost.body.velocity.y >= -75) {
+		  ghost.body.velocity.y -= 10;
+		  }
 	    }
 
 
