@@ -46,9 +46,6 @@
 	    game.stage.backgroundColor = '#808070';
 	    rain = game.add.tileSprite(0, 0, 2000, 2000, 'rain', 0);
 	    wind = game.add.tileSprite(0, 0, 2000, 2000, 'wind', 0);
-	    //var nearhorizon = game.add.image(0, 200, 'nearhorizon');
-	    //farhorizon = game.add.tileSprite(0, 400, 1600, 600, 'farhorizon', 0);
-	    //nearhorizon = game.add.tileSprite(0, 200, 1600, 600, 'nearhorizon', 0);
 
 	    map = game.add.tilemap('map');
 	    
@@ -70,29 +67,11 @@
 	    map.addTilesetImage('tree');
 
 	    layer = map.createLayer('Midground');
-	    //collisionLayer = map.createLayer('Object Layer 1');
-	    //rain = game.add.tileSprite(0, 0, 2000, 2000, 'rain', 0);
 
 	    layer.resizeWorld();
 
-	    //  Set the tiles for collision.
-	    //  Do this BEFORE generating the p2 bodies below.
-	    //map.setCollisionBetween(2, 39);
-
-	    //  Convert the tilemap layer into bodies. Only tiles that collide (see above) are created.
-	    //  This call returns an array of body objects which you can perform addition actions on if
-	    //  required. There is also a parameter to control optimising the map build.
-	    //game.physics.p2.convertTilemap(map, layer);
-	    //ghost.body.collides(boundsCG);
-	    //var boundsCG =  game.physics.p2.createCollisionGroup();
 	    game.physics.p2.convertCollisionObjects(map,"Collision Layer", true); 
-	    //ghost.collides(collisionLayer);
-	    //var bounds = game.physics.p2.convertCollisionObjects(map, 'Object Layer 1', true);   
-	    //for(var bound in bounds)
-	    //{
-	    //  bounds[bound].setCollisionGroup(boundsCG);
-	    //  bounds[bound].collides(ghost);
-	    //}
+
       
 	    game.physics.p2.restitution = 0.5;
 	    game.physics.p2.gravity.y = 300;
@@ -113,12 +92,7 @@
 	    else {
 		ghost.scale.setTo(-1-Math.abs(ghost.body.velocity.x/2000), 1+Math.abs(ghost.body.velocity.y/1000))
 	    }
-	    //nearhorizon.tilePosition.x = -game.camera.position.x/8;
-	    //farhorizon.tilePosition.x = -game.camera.position.x/16;
-	    //nearhorizon.tilePosition.y = -game.camera.position.y/8;
-	    //farhorizon.tilePosition.y = -game.camera.position.y/16;
-	    //background.tilePosition.x = -game.camera.position.x/16;
-	    //background.tilePosition.y = -game.camera.position.y/8;
+
 	    rain.tilePosition.x -= 1;
 	    rain.tilePosition.y += 2;
 	    wind.tilePosition.x -= 2;
@@ -126,7 +100,6 @@
 
 	    if (cursors.left.isDown)
 	    {
-		//ghost.scale.x = 1;
 		if (ghost.body.velocity.x >= -250) {
 		  ghost.body.velocity.x -= 10;
 		}
@@ -135,7 +108,6 @@
 	    }
 	    else if (cursors.right.isDown)
 	    {
-		//ghost.scale.x = -1;
 		if (ghost.body.velocity.x <= 250) {
 		  ghost.body.velocity.x += 10;
 		}
