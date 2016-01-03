@@ -17,8 +17,7 @@
 	function preload() {
 	    game.load.spritesheet('ghost', 'ghost-wavey.png', 40, 80, 8);
 	    game.load.image('background', 'darkrock.png');
-	    game.load.image('sky', 'sky.png');
-	    game.load.image('ball', 'block.png');
+	    game.load.image('log', '1x3log.png');
 
 	}
 
@@ -35,7 +34,7 @@
 
 	    var spriteMaterial = game.physics.p2.createMaterial('spriteMaterial');
 	    var worldMaterial = game.physics.p2.createMaterial('worldMaterial');
-	    var contactMaterial = game.physics.p2.createContactMaterial(spriteMaterial, worldMaterial, { restitution: 1.0 });
+	    var contactMaterial = game.physics.p2.createContactMaterial(spriteMaterial, worldMaterial, { restitution: 0.2 });
 
 	    ghost = game.add.sprite(game.world.centerX, game.world.centerY, 'ghost');
 	    game.physics.enable(ghost, Phaser.Physics.P2JS);
@@ -46,14 +45,14 @@
 	    
 	    game.physics.p2.setWorldMaterial(worldMaterial);
 
-	    sprite1 = game.add.sprite(200, 100, 'ball');
-	    sprite3 = game.add.sprite(600, 100, 'ball');
+	    log1 = game.add.sprite(200, 80, 'log');
+	    log2 = game.add.sprite(210, 100, 'log');
 
 	    //  Enable for physics. This creates a default rectangular body.
-	    game.physics.p2.enable([ sprite1, sprite3 ]);
+	    game.physics.p2.enable([ log1, log2 ]);
 
-	    sprite1.body.setMaterial(spriteMaterial);
-	    sprite3.body.setMaterial(spriteMaterial);
+	    log1.body.setMaterial(spriteMaterial);
+	    log2.body.setMaterial(spriteMaterial);
 
 	    cursors = game.input.keyboard.createCursorKeys();
 
