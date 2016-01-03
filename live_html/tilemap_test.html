@@ -59,18 +59,30 @@
 	    map.addTilesetImage('tree');
 	    
 	    layer = map.createLayer('Tile Layer 1');
+	    //collisionLayer = map.createLayer('Object Layer 1');
+
 
 	    layer.resizeWorld();
 
 	    //  Set the tiles for collision.
 	    //  Do this BEFORE generating the p2 bodies below.
-	    map.setCollisionBetween(2, 39);
+	    //map.setCollisionBetween(2, 39);
 
 	    //  Convert the tilemap layer into bodies. Only tiles that collide (see above) are created.
 	    //  This call returns an array of body objects which you can perform addition actions on if
 	    //  required. There is also a parameter to control optimising the map build.
-	    game.physics.p2.convertTilemap(map, layer);
-
+	    //game.physics.p2.convertTilemap(map, layer);
+	    //ghost.body.collides(boundsCG);
+	    //var boundsCG =  game.physics.p2.createCollisionGroup();
+	    game.physics.p2.convertCollisionObjects(map,"Object Layer 1", true); 
+	    //ghost.collides(collisionLayer);
+	    //var bounds = game.physics.p2.convertCollisionObjects(map, 'Object Layer 1', true);   
+	    //for(var bound in bounds)
+	    //{
+	    //  bounds[bound].setCollisionGroup(boundsCG);
+	    //  bounds[bound].collides(ghost);
+	    //}
+      
 	    game.physics.p2.restitution = 0.5;
 	    game.physics.p2.gravity.y = 300;
 
