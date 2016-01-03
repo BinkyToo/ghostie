@@ -41,8 +41,8 @@
 	    var wave = ghost.animations.add('wave');
 	    ghost.animations.play('wave', 25, true);
 	    ghost.body.fixedRotation = true;
-	    ghost.body.restitution = 1;
-	    ghost.body.damping = 0.3;
+	    ghost.body.restitution = 0.5;
+	    ghost.body.damping = 0.6;
 
 	    
 	    game.physics.p2.setWorldMaterial(worldMaterial);
@@ -65,7 +65,7 @@
 
 	    if (cursors.left.isDown)
 	    {
-		if (ghost.body.velocity.x >= -400) {
+		if (ghost.body.velocity.x >= -250) {
 		  ghost.body.velocity.x -= 10;
 		}
 		ghost.body.moveDown(40);
@@ -73,7 +73,7 @@
 	    }
 	    else if (cursors.right.isDown)
 	    {
-		if (ghost.body.velocity.x <= 400) {
+		if (ghost.body.velocity.x <= 250) {
 		  ghost.body.velocity.x += 10;
 		}
 		ghost.body.moveDown(40);
